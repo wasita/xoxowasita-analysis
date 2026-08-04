@@ -36,12 +36,13 @@
 	</button>
 	{#each topicOrder as t (t)}
 		<button
-			class="rounded-full border px-3 py-1 text-sm transition-colors
+			class="flex items-center gap-1.5 rounded-full border px-3 py-1 text-sm transition-colors
 			       {selected === t
 				? 'border-accent bg-accent/20 text-ink'
 				: 'border-white/10 text-ink-2 hover:border-white/25'}"
 			onclick={() => (selected = selected === t ? null : t)}
 		>
+			<span class="size-2.5 rounded-full" style="background: {topics[t].color}"></span>
 			{topics[t].label} <span class="text-ink-3">{topicCounts[t]}</span>
 		</button>
 	{/each}
@@ -57,8 +58,8 @@
 				cx={sx(p.x)}
 				cy={sy(p.y)}
 				r={hover === p.id ? 8 : dim ? 3 : 4.5}
-				class={dim ? 'fill-ink-3' : 'fill-accent'}
-				opacity={dim ? 0.25 : hover === p.id ? 1 : 0.8}
+				fill={dim ? 'var(--color-ink-3)' : topics[p.topic].color}
+				opacity={dim ? 0.2 : hover === p.id ? 1 : 0.85}
 				onmouseenter={() => (hover = p.id)}
 				onmouseleave={() => (hover = null)}
 			/>

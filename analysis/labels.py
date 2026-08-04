@@ -7,17 +7,18 @@ close reading of the full transcript (Claude, 2026-08-04). Each entry is
 script asserts the name column matches to catch any misalignment.
 """
 
+# Pastel blues → purples → pinks, matching the site theme.
 TOPICS = {
-    "greet": {"label": "Hellos", "color": "#a78bfa"},
+    "greet": {"label": "Hellos", "color": "#7dd3fc"},
     "hype": {"label": "Cheering & awe", "color": "#f472b6"},
-    "emoji": {"label": "Pure emoji", "color": "#fbbf24"},
+    "emoji": {"label": "Pure emoji", "color": "#fda4af"},
     "congrats": {"label": "Congratulations", "color": "#e879f9"},
     "lore": {"label": "Wasita lore", "color": "#60a5fa"},
-    "meta": {"label": "The chat itself & AI jokes", "color": "#34d399"},
-    "science": {"label": "The science", "color": "#f87171"},
-    "tangent": {"label": "Krispy Kreme & Mohegan tangent", "color": "#fb923c"},
-    "connection": {"label": "Feeling connected", "color": "#c084fc"},
-    "thanks": {"label": "Thank-you slide feels", "color": "#5eead4"},
+    "meta": {"label": "The chat itself & AI jokes", "color": "#a5b4fc"},
+    "science": {"label": "The science", "color": "#c084fc"},
+    "tangent": {"label": "Krispy Kreme & Mohegan tangent", "color": "#f9a8d4"},
+    "connection": {"label": "Feeling connected", "color": "#f0abfc"},
+    "thanks": {"label": "Thank-you slide feels", "color": "#c4b5fd"},
 }
 
 LABELS = [
