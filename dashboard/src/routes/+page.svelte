@@ -1,8 +1,12 @@
 <script lang="ts">
 	import { meta, peakMinute, EVENT_END_MIN, emojiRows } from '$lib/data';
 	import Timeline from '$lib/components/Timeline.svelte';
+	import Moments from '$lib/components/Moments.svelte';
 	import EmojiStreams from '$lib/components/EmojiStreams.svelte';
+	import AffectWaves from '$lib/components/AffectWaves.svelte';
 	import TopicMap from '$lib/components/TopicMap.svelte';
+	import ConnectionGraph from '$lib/components/ConnectionGraph.svelte';
+	import AuthorMap from '$lib/components/AuthorMap.svelte';
 	import Reconstruction from '$lib/components/Reconstruction.svelte';
 	import Leaderboards from '$lib/components/Leaderboards.svelte';
 	import Transcript from '$lib/components/Transcript.svelte';
@@ -16,12 +20,16 @@
 	];
 
 	const sections = [
-		{ id: 'timeline', title: 'The shape of the defense', kicker: 'messages per minute' },
-		{ id: 'emoji', title: 'The emoji record', kicker: `${emojiRows.length} distinct reactions` },
-		{ id: 'topics', title: 'What people talked about', kicker: 'a semantic map' },
-		{ id: 'talk', title: 'The talk, reconstructed from chat alone', kicker: 'the experiment' },
-		{ id: 'boards', title: 'Leaderboards', kicker: 'the chattiest & most loved' },
-		{ id: 'transcript', title: 'Every message', kicker: 'the full archive' }
+		{ id: 'timeline', title: 'The shape of the defense', kicker: 'messages per minute', component: Timeline },
+		{ id: 'moments', title: 'When the room moved as one', kicker: 'burst detection', component: Moments },
+		{ id: 'emoji', title: 'The emoji record', kicker: `${emojiRows.length} distinct reactions`, component: EmojiStreams },
+		{ id: 'affect', title: 'What the room felt', kicker: 'affect waves', component: AffectWaves },
+		{ id: 'topics', title: 'What people talked about', kicker: 'a semantic map', component: TopicMap },
+		{ id: 'network', title: 'Who connected with whom', kicker: 'the connection graph', component: ConnectionGraph },
+		{ id: 'authors', title: 'Who chats alike', kicker: 'author constellation', component: AuthorMap },
+		{ id: 'talk', title: 'The talk, reconstructed from chat alone', kicker: 'the experiment', component: Reconstruction },
+		{ id: 'boards', title: 'Leaderboards', kicker: 'the chattiest & most loved', component: Leaderboards },
+		{ id: 'transcript', title: 'Every message', kicker: 'the full archive', component: Transcript }
 	];
 </script>
 
@@ -55,23 +63,12 @@
 </header>
 
 <main class="mx-auto max-w-4xl space-y-20 px-5 pb-24">
-	{#each sections as s, i (s.id)}
+	{#each sections as s (s.id)}
+		{@const Section = s.component}
 		<section id={s.id} class="scroll-mt-8">
 			<p class="text-xs font-medium tracking-widest text-accent-soft uppercase">{s.kicker}</p>
 			<h2 class="mt-1 mb-6 text-2xl font-semibold text-ink">{s.title}</h2>
-			{#if i === 0}
-				<Timeline />
-			{:else if i === 1}
-				<EmojiStreams />
-			{:else if i === 2}
-				<TopicMap />
-			{:else if i === 3}
-				<Reconstruction />
-			{:else if i === 4}
-				<Leaderboards />
-			{:else}
-				<Transcript />
-			{/if}
+			<Section />
 		</section>
 	{/each}
 </main>
