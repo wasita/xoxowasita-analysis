@@ -30,7 +30,7 @@
 		xoxo wasita
 	</h1>
 	<p class="mt-4 text-lg text-ink-2">
-		what 57 people said while Wasita became Dr. Mahaphanit
+		what 57 people said while Dr. Mahaphanit defended in public
 	</p>
 	<p class="mt-1 text-sm text-ink-3">
 		July 10, 2026 · public dissertation defense ·

@@ -144,8 +144,13 @@ SEGMENTS = [
     {
         "start": 63.0,
         "end": 71.0,
-        "title": "PASSED: Dr. Mahaphanit",
-        "inference": "The committee returns with the result; a second, bigger congratulations wave crowns Dr. Wasita Mahaphanit.",
+        "title": "Final bow: Dr. Mahaphanit",
+        "inference": (
+            "The defense closes to a second, bigger congratulations wave. (The "
+            "first reconstruction read this as a committee verdict — wrong: this "
+            "was the public defense, and Wasita had already passed. The chat's "
+            "celebration shape is indistinguishable from a verdict moment.)"
+        ),
         "evidence": "“Congrats Dr. Mahaphanit!!!!!”; second congrats burst at minute 64–66.",
         "confidence": "high",
     },
@@ -158,9 +163,11 @@ VERDICT = {
         "The stimuli (Love Is Blind, reality TV, real friends as characters, an ant)",
         "The personal story (Tumblr, Phoebe Bridgers, English teacher, Joji)",
         "The acknowledgments, nearly name by name",
-        "The outcome (she passed)",
     ],
     "lost": [
+        "Ground truth the room already knew: chat-alone reconstruction confidently "
+        "read the closing congratulations as a committee verdict, but this was the "
+        "public defense — Wasita had already passed",
         "Every hypothesis, model, and result — not one effect, statistic, or "
         "conclusion appears in 340 messages",
         "What the studies actually measured or found",
