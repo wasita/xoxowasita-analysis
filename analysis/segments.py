@@ -76,8 +76,10 @@ SEGMENTS = [
         "title": "She builds it all herself (no AI, no vibes-coding)",
         "inference": (
             "Wasita describes hand-building her experiment platforms — explicitly "
-            "without AI assistance — and quips “...and I am not AI”. The chat "
-            "spirals into jokes about being training data and an AI Wasita on Zoom."
+            "without AI assistance — and reads out a Reddit post in which one of "
+            "her own study participants wrote about the experiment, signing off "
+            "“...and I am not AI”. The chat spirals into jokes about being "
+            "training data and an AI Wasita on Zoom."
         ),
         "evidence": "“wasita said no vibe coding happened here”; Luke's {'rawDogging': 'coding without claude'}; “we're being used as training data rn”.",
         "confidence": "high",
