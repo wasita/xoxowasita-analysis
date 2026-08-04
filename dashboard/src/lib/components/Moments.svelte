@@ -1,7 +1,6 @@
 <script lang="ts">
 	import moments from '$lib/data/moments.json';
 	import { messages, EVENT_END_MIN, fmtClock } from '$lib/data';
-	import { seekReplay } from '$lib/replay.svelte';
 
 	const msgById = new Map(messages.map((m) => [m.id, m]));
 	const { bursts, laughLeaders, threadLatency } = moments;
@@ -11,13 +10,11 @@
 <!-- Burst strip on the shared time axis -->
 <div class="relative h-10 rounded-md border border-white/10 bg-surface-2/50">
 	{#each bursts as b (b.start)}
-		<button
-			class="absolute top-0 h-full rounded-sm bg-accent transition-colors hover:bg-accent-2"
+		<div
+			class="absolute top-0 h-full rounded-sm bg-accent"
 			style="left: {(b.start / EVENT_END_MIN) * 100}%; width: {((b.end - b.start) / EVENT_END_MIN) * 100}%; opacity: {0.35 + 0.6 * (b.peakZ / 5)}"
-			title="min {b.start}–{b.end}, z = {b.peakZ} — watch this moment"
-			aria-label="Watch burst at minute {b.start}"
-			onclick={() => seekReplay(b.start)}
-		></button>
+			title="min {b.start}–{b.end}, z = {b.peakZ}"
+		></div>
 	{/each}
 	{#each [0, 10, 20, 30, 40, 50, 60, 70] as t}
 		<span class="absolute -bottom-5 -translate-x-1/2 text-[11px] text-ink-3" style="left: {(t / EVENT_END_MIN) * 100}%">{t}m</span>
@@ -31,13 +28,9 @@
 <div class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
 	{#each bursts as b (b.start)}
 		{@const trigger = b.triggerId ? msgById.get(b.triggerId) : null}
-		<button
-			class="rounded-xl border border-white/10 bg-surface-2/60 p-4 text-left transition-colors hover:border-accent/50"
-			onclick={() => seekReplay(b.start)}
-		>
+		<div class="rounded-xl border border-white/10 bg-surface-2/60 p-4">
 			<p class="text-xs text-ink-3">
 				{fmtClock(b.start)}–{fmtClock(b.end)} · z = {b.peakZ} · {b.nMessages} msgs, {b.nReactions} reactions
-				· <span class="text-accent-soft">▶ watch</span>
 			</p>
 			{#if trigger}
 				<p class="mt-2 text-sm text-ink">
@@ -45,7 +38,7 @@
 					{trigger.text}
 				</p>
 			{/if}
-		</button>
+		</div>
 	{/each}
 </div>
 

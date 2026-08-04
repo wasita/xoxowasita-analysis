@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { meta, peakMinute, EVENT_END_MIN, emojiRows } from '$lib/data';
-	import Replay from '$lib/components/Replay.svelte';
 	import Timeline from '$lib/components/Timeline.svelte';
 	import Moments from '$lib/components/Moments.svelte';
 	import EmojiStreams from '$lib/components/EmojiStreams.svelte';
@@ -21,8 +20,9 @@
 		{ value: `min ${peakMinute.minute}`, label: `peak — ${peakMinute.messages} msgs` }
 	];
 
+	// Video replay (Replay.svelte) is parked until the dissertation is published —
+	// the recording shows unpublished studies.
 	const sections = [
-		{ id: 'replay', title: 'Watch it back, chat and all', kicker: 'the defense, resynced', component: Replay },
 		{ id: 'timeline', title: 'The shape of the defense', kicker: 'messages per minute', component: Timeline },
 		{ id: 'moments', title: 'When the room moved as one', kicker: 'burst detection', component: Moments },
 		{ id: 'emoji', title: 'The emoji record', kicker: `${emojiRows.length} distinct reactions`, component: EmojiStreams },
