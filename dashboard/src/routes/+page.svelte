@@ -7,6 +7,7 @@
 	import AffectWaves from '$lib/components/AffectWaves.svelte';
 	import TopicMap from '$lib/components/TopicMap.svelte';
 	import ConnectionGraph from '$lib/components/ConnectionGraph.svelte';
+	import ResponsivityGraph from '$lib/components/ResponsivityGraph.svelte';
 	import AuthorMap from '$lib/components/AuthorMap.svelte';
 	import Reconstruction from '$lib/components/Reconstruction.svelte';
 	import Leaderboards from '$lib/components/Leaderboards.svelte';
@@ -28,6 +29,7 @@
 		{ id: 'affect', title: 'What the room felt', kicker: 'affect waves', component: AffectWaves },
 		{ id: 'topics', title: 'What people talked about', kicker: 'a semantic map', component: TopicMap },
 		{ id: 'network', title: 'Who connected with whom', kicker: 'the connection graph', component: ConnectionGraph },
+		{ id: 'responsivity', title: 'Who answers whom', kicker: 'turn-taking responsivity', component: ResponsivityGraph },
 		{ id: 'authors', title: 'Who chats alike', kicker: 'author constellation', component: AuthorMap },
 		{ id: 'talk', title: 'The talk, reconstructed from chat alone', kicker: 'the experiment', component: Reconstruction },
 		{ id: 'boards', title: 'Leaderboards', kicker: 'the chattiest & most loved', component: Leaderboards },

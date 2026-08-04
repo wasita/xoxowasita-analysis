@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import { messages, segments, fmtClock, type Message } from '$lib/data';
+	import { replayControl } from '$lib/replay.svelte';
 
 	const VIDEO_URL =
 		'https://github.com/wasita/xoxowasita-analysis/releases/download/recording/defense.mp4';
@@ -33,6 +34,15 @@
 	$effect(() => {
 		visible.length; // track
 		if (pinned && chatEl) chatEl.scrollTop = chatEl.scrollHeight;
+	});
+
+	// External seek requests (e.g. clicking a burst) arrive in chat-minutes.
+	$effect(() => {
+		if (replayControl.request !== null && videoEl) {
+			videoEl.currentTime = replayControl.request * 60 + offset;
+			videoEl.play();
+			replayControl.request = null;
+		}
 	});
 
 	const onChatScroll = () => {
