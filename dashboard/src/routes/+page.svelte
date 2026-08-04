@@ -76,5 +76,5 @@
 <footer class="border-t border-white/10 py-8 text-center text-sm text-ink-3">
 	made with 💜 from the
 	<a href="https://github.com/ljchang/xoxowasita" class="underline decoration-white/30 hover:text-ink-2">xoxowasita</a>
-	firebase export · unlisted, please don't index
+	chat archive · july 10, 2026
 </footer>

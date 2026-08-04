@@ -146,10 +146,8 @@ SEGMENTS = [
         "end": 71.0,
         "title": "Final bow: Dr. Mahaphanit",
         "inference": (
-            "The defense closes to a second, bigger congratulations wave. (The "
-            "first reconstruction read this as a committee verdict — wrong: this "
-            "was the public defense, and Wasita had already passed. The chat's "
-            "celebration shape is indistinguishable from a verdict moment.)"
+            "The defense closes to a second, bigger congratulations wave for "
+            "Dr. Mahaphanit."
         ),
         "evidence": "“Congrats Dr. Mahaphanit!!!!!”; second congrats burst at minute 64–66.",
         "confidence": "high",
@@ -165,9 +163,9 @@ VERDICT = {
         "The acknowledgments, nearly name by name",
     ],
     "lost": [
-        "Ground truth the room already knew: chat-alone reconstruction confidently "
-        "read the closing congratulations as a committee verdict, but this was the "
-        "public defense — Wasita had already passed",
+        "That nothing was at stake: this was the public defense — she had "
+        "already passed — yet the chat's closing celebration is indistinguishable "
+        "from a live verdict moment",
         "Every hypothesis, model, and result — not one effect, statistic, or "
         "conclusion appears in 340 messages",
         "What the studies actually measured or found",
