@@ -12,8 +12,8 @@ SEGMENTS = [
         "end": 1.5,
         "title": "Doors open: the app reveal",
         "inference": (
-            "Luke opens his introduction by unveiling xoxowasita.com itself and "
-            "putting the URL on screen. The audience floods in on their phones."
+            "Near the end of his introduction, Luke unveils xoxowasita.com and "
+            "puts the URL on screen. The audience floods in on their phones."
         ),
         "evidence": "20+ greetings in the first 90 seconds; “chat popping off”; “this is like watching a twitch stream”.",
         "confidence": "high",
@@ -23,7 +23,7 @@ SEGMENTS = [
         "end": 5.0,
         "title": "Luke's roast-tribute intro: Wasita lore",
         "inference": (
-            "A biographical intro with embarrassing archival photos: Tumblr-teen "
+            "The intro's closing stretch, with embarrassing archival photos: Tumblr-teen "
             "era, Brown undergrad, an iconic elevator photo, and a "
             "lonely-kid-to-social-psychologist arc. It lands on the talk's framing: "
             "loneliness is as harmful as smoking (the famous ~15-cigarettes stat, "
