@@ -1,0 +1,34 @@
+@import 'tailwindcss';
+
+@font-face {
+	font-family: 'Monas';
+	src: url('./lib/assets/monas.woff2') format('woff2');
+	font-display: swap;
+}
+
+@theme {
+	--font-display: 'Monas', ui-serif, serif;
+	/* Wasita's violet/fuchsia/pink dark-mode palette, chart steps validated
+	   against --color-surface (dataviz six checks, 2-slot categorical). */
+	--color-page: #0b0812;
+	--color-surface: #131019;
+	--color-surface-2: #1b1524;
+	--color-ink: #f4f1fa;
+	--color-ink-2: #b5aec6;
+	--color-ink-3: #837c93;
+	--color-grid: #241d30;
+	--color-accent: #8b5cf6; /* violet — series 1 */
+	--color-accent-2: #ec4899; /* fuchsia — series 2 */
+	--color-accent-soft: #a78bfa; /* text-on-dark violet, not a mark color */
+}
+
+html {
+	background: var(--color-page);
+	color: var(--color-ink);
+	color-scheme: dark;
+	scroll-behavior: smooth;
+}
+
+::selection {
+	background: color-mix(in oklab, var(--color-accent) 40%, transparent);
+}
