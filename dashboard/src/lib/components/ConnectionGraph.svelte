@@ -16,15 +16,27 @@
 	const edges = network.edges;
 	const byName = new Map(nodes.map((n) => [n.name, n]));
 
+	// Isolates (no interactions) get flung to the layout's rim and squash the
+	// connected core, so they're hidden by default.
+	let showIsolates = $state(false);
+	const visible = $derived(showIsolates ? nodes : nodes.filter((n) => n.degree > 0));
+	const nIsolates = nodes.filter((n) => n.degree === 0).length;
+
 	const W = 720;
 	const H = 560;
 	const PAD = 46;
-	const xs = nodes.map((n) => n.x);
-	const ys = nodes.map((n) => n.y);
-	const [x0, x1] = [Math.min(...xs), Math.max(...xs)];
-	const [y0, y1] = [Math.min(...ys), Math.max(...ys)];
-	const sx = (x: number) => PAD + ((x - x0) / (x1 - x0)) * (W - 2 * PAD);
-	const sy = (y: number) => PAD + ((y1 - y) / (y1 - y0)) * (H - 2 * PAD);
+	const extent = $derived.by(() => {
+		const xs = visible.map((n) => n.x);
+		const ys = visible.map((n) => n.y);
+		return {
+			x0: Math.min(...xs),
+			x1: Math.max(...xs),
+			y0: Math.min(...ys),
+			y1: Math.max(...ys)
+		};
+	});
+	const sx = (x: number) => PAD + ((x - extent.x0) / (extent.x1 - extent.x0)) * (W - 2 * PAD);
+	const sy = (y: number) => PAD + ((extent.y1 - y) / (extent.y1 - extent.y0)) * (H - 2 * PAD);
 
 	const radius = (n: Node) => 3 + 2.2 * Math.sqrt(n.messages + n.reactionsGiven / 3);
 	const maxWeight = edges[0].weight;
@@ -48,6 +60,15 @@
 	);
 </script>
 
+<label class="mb-3 flex w-fit cursor-pointer items-center gap-2 text-sm text-ink-2">
+	<input
+		type="checkbox"
+		bind:checked={showIsolates}
+		class="size-4 rounded border-white/25 bg-surface-2 accent-[var(--color-accent)]"
+	/>
+	show the {nIsolates} people with no recorded interactions
+</label>
+
 <div class="relative">
 	<svg viewBox="0 0 {W} {H}" class="w-full rounded-lg border border-white/10 bg-surface-2/50"
 		role="img" aria-label="Network of who reacted, replied, and mentioned whom">
@@ -63,7 +84,7 @@
 				opacity={hover === null ? 0.1 + 0.35 * (e.weight / maxWeight) : lit ? 0.9 : 0.04}
 			/>
 		{/each}
-		{#each nodes as n (n.name)}
+		{#each visible as n (n.name)}
 			{@const dim = hover !== null && hover !== n.name && !edges.some((e) => touches(e, hover!) && touches(e, n.name))}
 			<circle
 				role="presentation"
@@ -107,7 +128,7 @@
 	{/if}
 </div>
 <p class="mt-2 text-sm text-ink-3">
-	{nodes.length} people ({nodes.length - 57} reacted without ever messaging) · node size = activity ·
-	edge weight = reactions + thread replies + @mentions between two people · layout pulls the
-	connected together. Hover anyone.
+	{visible.length} of {nodes.length} people shown · node size = activity · edge weight =
+	reactions + thread replies + @mentions between two people · layout pulls the connected
+	together. Hover anyone.
 </p>
