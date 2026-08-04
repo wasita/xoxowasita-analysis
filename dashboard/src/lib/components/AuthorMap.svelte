@@ -52,13 +52,18 @@
 			<p class="text-sm">
 				<span class="font-semibold text-accent-soft">{hoverAuthor.name}</span>
 				<span class="text-ink-3">
-					· {hoverAuthor.messages} messages · {hoverAuthor.reactionsReceived} reactions received</span>
+					· {hoverAuthor.messages} messages · style twin: {hoverAuthor.styleTwin}</span>
 			</p>
-			<p class="mt-0.5 text-sm text-ink-2">most-reacted: “{hoverAuthor.sample}”</p>
+			<p class="mt-1 text-sm text-ink-2">
+				{#each hoverAuthor.traits as t, i (t.text)}{i > 0 ? ' · ' : ''}{t.text}{/each}
+			</p>
+			<p class="mt-1 text-sm text-ink-3">most-reacted: “{hoverAuthor.sample}”</p>
 		</div>
 	{/if}
 </div>
 <p class="mt-2 text-sm text-ink-3">
-	Everyone with ≥ {minMessages} messages, placed by the average meaning of what they wrote
-	(embedding centroid → UMAP). Neighbors chat alike; dot size = message count.
+	Placed by <em>how</em> they type, not what they said: CAPS, !!!, letter-stretching, lol/haha,
+	slang, …-pauses, emoji, pronouns and articles — z-scored across the room, laid out with UMAP.
+	Neighbors share a voice; dot size = message count. Everyone with ≥ {minMessages} messages
+	(or ≥ {authorsData.minWords} words). Hover for each person's signature moves and style twin.
 </p>
