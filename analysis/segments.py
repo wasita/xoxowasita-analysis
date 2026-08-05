@@ -90,8 +90,9 @@ SEGMENTS = [
         "title": "Study: Love Is Blind as naturalistic stimulus",
         "inference": (
             "A study using the reality show Love Is Blind (season-2 cast: Shayne, "
-            "Shaina, Natalie) as a naturalistic social stimulus, run on the lab's "
-            "hyperstudy platform, after screening many candidate shows."
+            "Shaina, Natalie) as a naturalistic social stimulus, run on a web app "
+            "Wasita built herself — like all her experiment platforms — after "
+            "screening many candidate shows."
         ),
         "evidence": "“Shane and Shaina, meant to be”; “they move fast on love is blind”; Luke: “we watched so many shows until we converged on LIB”.",
         "confidence": "high",
