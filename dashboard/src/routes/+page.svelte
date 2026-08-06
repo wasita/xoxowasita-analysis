@@ -4,6 +4,11 @@
 	import Moments from '$lib/components/Moments.svelte';
 	import EmojiStreams from '$lib/components/EmojiStreams.svelte';
 	import AffectWaves from '$lib/components/AffectWaves.svelte';
+	import Burstiness from '$lib/components/Burstiness.svelte';
+	import DriftCurve from '$lib/components/DriftCurve.svelte';
+	import Phrases from '$lib/components/Phrases.svelte';
+	import ReactionMatrix from '$lib/components/ReactionMatrix.svelte';
+	import SentimentCurve from '$lib/components/SentimentCurve.svelte';
 	import TopicMap from '$lib/components/TopicMap.svelte';
 	import WordCloud from '$lib/components/WordCloud.svelte';
 	import ConnectionGraph from '$lib/components/ConnectionGraph.svelte';
@@ -28,10 +33,15 @@
 		{ id: 'moments', title: 'When the room moved as one', kicker: 'burst detection', component: Moments },
 		{ id: 'emoji', title: 'The emoji record', kicker: `${emojiRows.length} distinct reactions`, component: EmojiStreams },
 		{ id: 'affect', title: 'What the room felt', kicker: 'affect waves', component: AffectWaves },
+		{ id: 'sentiment', title: 'The mood curve', kicker: 'sentiment over time', component: SentimentCurve },
 		{ id: 'topics', title: 'What people talked about', kicker: 'a semantic map', component: TopicMap },
+		{ id: 'drift', title: 'When the conversation shifted', kicker: 'semantic drift', component: DriftCurve },
 		{ id: 'words', title: 'In so many words', kicker: 'the wordcloud', component: WordCloud },
+		{ id: 'phrases', title: 'Born in the chat', kicker: 'coined phrases', component: Phrases },
 		{ id: 'network', title: 'Who connected with whom', kicker: 'the connection graph', component: ConnectionGraph },
 		{ id: 'responsivity', title: 'Who answers whom', kicker: 'turn-taking responsivity', component: ResponsivityGraph },
+		{ id: 'matrix', title: 'Who showers whom', kicker: 'the reaction matrix', component: ReactionMatrix },
+		{ id: 'burstiness', title: 'Steady vs spiky', kicker: 'posting rhythm', component: Burstiness },
 		{ id: 'authors', title: 'Who chats alike', kicker: 'author constellation', component: AuthorMap },
 		{ id: 'talk', title: 'The talk, reconstructed from chat alone', kicker: 'the experiment', component: Reconstruction },
 		{ id: 'boards', title: 'Leaderboards', kicker: 'the chattiest & most loved', component: Leaderboards },
