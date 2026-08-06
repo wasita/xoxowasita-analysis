@@ -17,11 +17,16 @@ OUT = ROOT / "data" / "processed"
 EVENT_END_MIN = 72
 BIN_MIN = 2
 
+# Groupings audited against the messages each emoji actually landed on:
+# 💯 marks agreement ("12/10", "so relatable"), not awe; 🦄✨🐙 mark playful
+# delight and mascot-stamping; 😭 splits between real tears and "I'm dead".
 FAMILIES: dict[str, dict] = {
-    "love": {"label": "love", "glyphs": ["💜", "🤍", "❤️", "💕", "✨", "🥰"]},
+    "love": {"label": "love", "glyphs": ["💜", "🤍", "❤️", "💕", "🥰"]},
     "laugh": {"label": "laughter", "glyphs": ["😂", "🤣"]},
-    "awe": {"label": "awe & fire", "glyphs": ["💯", "🔥", "😮", "🤯", "🧠", "🦄"]},
-    "verklempt": {"label": "happy tears", "glyphs": ["🥹", "😭", "🥺"]},
+    "cosign": {"label": "co-sign, so true", "glyphs": ["💯"]},
+    "awe": {"label": "awe & fire", "glyphs": ["🔥", "😮", "🤯", "🧠"]},
+    "whimsy": {"label": "sparkle & whimsy", "glyphs": ["🦄", "✨", "🐙"]},
+    "verklempt": {"label": "crying, both kinds", "glyphs": ["🥹", "😭", "🥺"]},
     "cheer": {"label": "applause", "glyphs": ["👏", "🎉", "🥳", "🙌", "💪", "👍"]},
 }
 
