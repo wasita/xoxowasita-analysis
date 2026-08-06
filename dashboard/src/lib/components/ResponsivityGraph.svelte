@@ -60,7 +60,7 @@
 				fill="none"
 				class={lit ? 'stroke-accent-2' : 'stroke-accent'}
 				stroke-width={0.8 + 3.5 * (e.count / maxCount)}
-				opacity={hover === null ? 0.45 : lit ? 0.95 : 0.06}
+				opacity={hover === null ? (e.z >= 1.64 ? 0.7 : 0.15) : lit ? 0.95 : 0.05}
 				marker-end={lit ? 'url(#arrow-hot)' : 'url(#arrow)'}
 			/>
 		{/each}
@@ -97,7 +97,7 @@
 				<p class="mt-2 text-xs font-medium text-ink-3 uppercase tracking-wide">jumps in after</p>
 				<ul class="mt-1 space-y-0.5 text-xs text-ink-2">
 					{#each respondsTo.slice(0, 4) as e (e.target)}
-						<li>{e.target} <span class="text-ink-3">— ×{e.count}, {e.ratio}× chance</span></li>
+						<li>{e.target} <span class="text-ink-3">— ×{e.count}, {e.ratio}× chance (z {e.z})</span></li>
 					{/each}
 				</ul>
 			{/if}
@@ -105,7 +105,7 @@
 				<p class="mt-2 text-xs font-medium text-ink-3 uppercase tracking-wide">gets followed by</p>
 				<ul class="mt-1 space-y-0.5 text-xs text-ink-2">
 					{#each respondedBy.slice(0, 4) as e (e.source)}
-						<li>{e.source} <span class="text-ink-3">— ×{e.count}, {e.ratio}× chance</span></li>
+						<li>{e.source} <span class="text-ink-3">— ×{e.count}, {e.ratio}× chance (z {e.z})</span></li>
 					{/each}
 				</ul>
 			{/if}
@@ -113,8 +113,8 @@
 	{/if}
 </div>
 <p class="mt-2 text-sm text-ink-3">
-	An arrow from B to A means B takes the floor right after A more often than B's overall
-	chattiness predicts (main room and threads as separate turn streams, ≥ 2 occurrences).
-	Thicker = more follow-ups; node size = turns taken. Hover a person for their conversational
-	orbit.
+	An arrow from B to A means B takes the floor right after A. Thickness = how often; solid =
+	more often than chance (z ≥ 1.64 against a permutation null that shuffles turn order while
+	keeping everyone's number of turns); faint = volume explainable by chattiness alone. Node
+	size = turns taken. Hover a person for their conversational orbit.
 </p>

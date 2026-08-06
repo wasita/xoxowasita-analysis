@@ -5,6 +5,7 @@
 	import EmojiStreams from '$lib/components/EmojiStreams.svelte';
 	import AffectWaves from '$lib/components/AffectWaves.svelte';
 	import TopicMap from '$lib/components/TopicMap.svelte';
+	import WordCloud from '$lib/components/WordCloud.svelte';
 	import ConnectionGraph from '$lib/components/ConnectionGraph.svelte';
 	import ResponsivityGraph from '$lib/components/ResponsivityGraph.svelte';
 	import AuthorMap from '$lib/components/AuthorMap.svelte';
@@ -28,6 +29,7 @@
 		{ id: 'emoji', title: 'The emoji record', kicker: `${emojiRows.length} distinct reactions`, component: EmojiStreams },
 		{ id: 'affect', title: 'What the room felt', kicker: 'affect waves', component: AffectWaves },
 		{ id: 'topics', title: 'What people talked about', kicker: 'a semantic map', component: TopicMap },
+		{ id: 'words', title: 'In so many words', kicker: 'the wordcloud', component: WordCloud },
 		{ id: 'network', title: 'Who connected with whom', kicker: 'the connection graph', component: ConnectionGraph },
 		{ id: 'responsivity', title: 'Who answers whom', kicker: 'turn-taking responsivity', component: ResponsivityGraph },
 		{ id: 'authors', title: 'Who chats alike', kicker: 'author constellation', component: AuthorMap },

@@ -4,9 +4,12 @@ Turn-taking streams: the main room (thread replies excluded) plus each thread,
 as separate chronological sequences. A transition A→B (B speaks right after A,
 B ≠ A) counts toward the directed edge B→A ("B responds to A").
 
-Raw counts favor busy people, so each edge also carries a responsivity ratio:
-    ratio = P(next speaker is B | previous is A) / P(any turn is B's)
-ratio > 1 means B follows A more than B's overall chattiness predicts.
+Raw counts favor busy people, so each edge carries two normalizations:
+- ratio = P(next speaker is B | previous is A) / P(any turn is B's);
+  ratio > 1 means B follows A more than B's overall chattiness predicts.
+- a permutation z: each stream's turn order is shuffled (everyone keeps their
+  number of turns), and the observed A→B transition count is z-scored against
+  that null. z gates what the dashboard draws as solid.
 """
 
 import json
@@ -14,6 +17,7 @@ from collections import Counter
 from pathlib import Path
 
 import networkx as nx
+import numpy as np
 import polars as pl
 
 ROOT = Path(__file__).parent.parent
@@ -47,17 +51,36 @@ def main() -> None:
     for (a, _), n in transitions.items():
         after[a] += n
 
+    # Permutation null: shuffle each stream's order (turn counts preserved).
+    N_PERM = 2000
+    rng = np.random.default_rng(42)
+    null_counts: dict[tuple[str, str], list[int]] = {k: [] for k in transitions}
+    perm_streams = [list(s) for s in streams]
+    for _ in range(N_PERM):
+        perm: Counter[tuple[str, str]] = Counter()
+        for seq in perm_streams:
+            rng.shuffle(seq)
+            for a, b in zip(seq, seq[1:]):
+                if a != b:
+                    perm[(a, b)] += 1
+        for k in null_counts:
+            null_counts[k].append(perm.get(k, 0))
+
     edges = []
     for (a, b), n in transitions.items():
         if n < MIN_COUNT:
             continue
         expected = after[a] * (turns[b] / total_turns)
+        null = np.array(null_counts[(a, b)])
+        sd = null.std()
+        z = (n - null.mean()) / sd if sd > 0 else 0.0
         edges.append(
             {
                 "source": b,  # B responds to A: edge B -> A
                 "target": a,
                 "count": n,
                 "ratio": round(n / expected, 2) if expected > 0 else None,
+                "z": round(float(z), 2),
             }
         )
     edges.sort(key=lambda e: -e["count"])
