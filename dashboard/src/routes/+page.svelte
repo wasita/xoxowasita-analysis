@@ -43,7 +43,7 @@
 		{ id: 'matrix', title: 'Who showers whom', kicker: 'the reaction matrix', component: ReactionMatrix },
 		{ id: 'burstiness', title: 'Steady vs spiky', kicker: 'posting rhythm', component: Burstiness },
 		{ id: 'authors', title: 'Who chats alike', kicker: 'author constellation', component: AuthorMap },
-		{ id: 'talk', title: 'The talk, reconstructed from chat alone', kicker: 'the experiment', component: Reconstruction },
+		{ id: 'talk', title: 'The talk, minute by minute', kicker: 'chat-reconstructed, recording-verified', component: Reconstruction },
 		{ id: 'boards', title: 'Leaderboards', kicker: 'the chattiest & most loved', component: Leaderboards },
 		{ id: 'transcript', title: 'Every message', kicker: 'the full archive', component: Transcript }
 	];
