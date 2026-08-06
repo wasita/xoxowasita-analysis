@@ -18,7 +18,7 @@ TOPICS = {
     "science": {"label": "The science", "color": "#c084fc"},
     "tangent": {"label": "Krispy Kreme & Mohegan tangent", "color": "#f9a8d4"},
     "connection": {"label": "Feeling connected", "color": "#f0abfc"},
-    "thanks": {"label": "Thank-you slide feels", "color": "#c4b5fd"},
+    "thanks": {"label": "Thank you slide feels", "color": "#c4b5fd"},
 }
 
 LABELS = [

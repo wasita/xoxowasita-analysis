@@ -182,7 +182,7 @@ SEGMENTS = [
     {
         "start": 41.5,
         "end": 63.0,
-        "title": "The thank-you slides",
+        "title": "The thank you slides",
         "inference": (
             "Twenty minutes of acknowledgments: her committee — Robert Hawkins, "
             "Jonathan Phillips, Thalia Wheatley — plus Luke's own slide, Eunice, "
