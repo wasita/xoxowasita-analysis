@@ -12,8 +12,8 @@
 	</div>
 	<ol class="space-y-2">
 		{#each authors as a (a.name)}
-			<li class="grid grid-cols-[7rem_1fr_3rem] items-center gap-2 text-sm">
-				<span class="truncate text-ink-2" title={a.name}>{a.name}</span>
+			<li class="grid grid-cols-[9.5rem_1fr_3rem] items-center gap-2 text-sm">
+				<span class="whitespace-nowrap text-ink-2">{a.name}</span>
 				<div class="relative h-3.5">
 					<div class="absolute inset-y-0 left-1/2 w-px bg-white/20"></div>
 					<div
@@ -29,8 +29,11 @@
 		{/each}
 	</ol>
 	<p class="mt-4 text-sm text-ink-3">
-		Goh–Barabási burstiness of each person's gaps between messages (−1 = metronome,
-		0 = random, +1 = long silences broken by flurries). Everyone with ≥ {minMessages} messages
+		How it's computed: take the time gaps between each of a person's messages, then compare
+		how uneven those gaps are (their standard deviation σ) to their average length (μ):
+		B&nbsp;=&nbsp;(σ&nbsp;−&nbsp;μ)&nbsp;/&nbsp;(σ&nbsp;+&nbsp;μ), the Goh–Barabási burstiness
+		index. Perfectly even gaps give −1 (a metronome), random timing gives ≈ 0, and long
+		silences broken by rapid flurries push toward +1. Everyone with ≥ {minMessages} messages
 		during the live event.
 	</p>
 </div>
