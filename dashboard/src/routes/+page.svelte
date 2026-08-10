@@ -5,6 +5,8 @@
 	import EmojiStreams from '$lib/components/EmojiStreams.svelte';
 	import AffectWaves from '$lib/components/AffectWaves.svelte';
 	import Burstiness from '$lib/components/Burstiness.svelte';
+	import CouplingCurve from '$lib/components/CouplingCurve.svelte';
+	import Togetherness from '$lib/components/Togetherness.svelte';
 	import DriftCurve from '$lib/components/DriftCurve.svelte';
 	import Phrases from '$lib/components/Phrases.svelte';
 	import ReactionMatrix from '$lib/components/ReactionMatrix.svelte';
@@ -36,6 +38,8 @@
 		{ id: 'sentiment', title: 'The mood curve', kicker: 'sentiment over time', component: SentimentCurve },
 		{ id: 'topics', title: 'What people talked about', kicker: 'a semantic map', component: TopicMap },
 		{ id: 'drift', title: 'When the conversation shifted', kicker: 'semantic drift', component: DriftCurve },
+		{ id: 'coupling', title: 'Did the chat track the talk?', kicker: 'her own method, turned on the room', component: CouplingCurve },
+		{ id: 'togetherness', title: 'One conversation, or many?', kicker: 'the togetherness index', component: Togetherness },
 		{ id: 'words', title: 'In so many words', kicker: 'the wordcloud', component: WordCloud },
 		{ id: 'phrases', title: 'Born in the chat', kicker: 'coined phrases', component: Phrases },
 		{ id: 'network', title: 'Who connected with whom', kicker: 'the connection graph', component: ConnectionGraph },
