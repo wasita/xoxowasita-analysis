@@ -5,6 +5,17 @@
 	let topicFilter = $state<string | null>(null);
 	let authorFilter = $state<string | null>(null);
 	let hoverChip = $state<string | null>(null); // `${msgId}:${emoji}`
+	let clearTimer: ReturnType<typeof setTimeout>;
+	const chipEnter = (key: string) => {
+		clearTimeout(clearTimer);
+		hoverChip = key;
+	};
+	// Only leaving the whole reactions block clears, after a grace period —
+	// slipping between chips or off an edge doesn't flicker the names away.
+	const blockLeave = () => {
+		clearTimer = setTimeout(() => (hoverChip = null), 200);
+	};
+	const blockEnter = () => clearTimeout(clearTimer);
 
 	// Everyone who participated: message authors plus reaction-only lurkers.
 	const messageAuthors = new Set(messages.map((m) => m.name));
@@ -87,25 +98,26 @@
 			</p>
 			<p class="mt-0.5 text-[15px] text-ink whitespace-pre-wrap">{m.text}</p>
 			{#if Object.keys(m.reactions).length}
-				<p class="mt-1 flex flex-wrap gap-1.5">
+				<div role="presentation" onmouseenter={blockEnter} onmouseleave={blockLeave}>
+					<p class="mt-1 flex flex-wrap gap-1.5">
+						{#each Object.entries(m.reactions) as [emoji, users] (emoji)}
+							{@const key = `${m.id}:${emoji}`}
+							<span
+								role="presentation"
+								class="rounded-full border border-white/10 bg-white/5 px-2 py-1 text-xs text-ink-2 transition-colors
+								       {hoverChip === key ? 'border-accent/50 text-ink' : ''}"
+								onmouseenter={() => chipEnter(key)}
+							>
+								{emoji} {users.length}
+							</span>
+						{/each}
+					</p>
 					{#each Object.entries(m.reactions) as [emoji, users] (emoji)}
-						{@const key = `${m.id}:${emoji}`}
-						<span
-							role="presentation"
-							class="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-xs text-ink-2 transition-colors
-							       {hoverChip === key ? 'border-accent/50 text-ink' : ''}"
-							onmouseenter={() => (hoverChip = key)}
-							onmouseleave={() => (hoverChip = null)}
-						>
-							{emoji} {users.length}
-						</span>
+						{#if hoverChip === `${m.id}:${emoji}`}
+							<p class="mt-1 text-xs text-ink-3">{emoji} {users.join(', ')}</p>
+						{/if}
 					{/each}
-				</p>
-				{#each Object.entries(m.reactions) as [emoji, users] (emoji)}
-					{#if hoverChip === `${m.id}:${emoji}`}
-						<p class="mt-1 text-xs text-ink-3">{emoji} {users.join(', ')}</p>
-					{/if}
-				{/each}
+				</div>
 			{/if}
 		</div>
 	{:else}
