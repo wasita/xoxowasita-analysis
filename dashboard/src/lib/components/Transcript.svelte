@@ -65,11 +65,15 @@
 							onmouseenter={() => (hoverChip = key)}
 							onmouseleave={() => (hoverChip = null)}
 						>
-							{emoji}
-							{#if hoverChip === key}{users.join(', ')}{:else}{users.length}{/if}
+							{emoji} {users.length}
 						</span>
 					{/each}
 				</p>
+				{#each Object.entries(m.reactions) as [emoji, users] (emoji)}
+					{#if hoverChip === `${m.id}:${emoji}`}
+						<p class="mt-1 text-xs text-ink-3">{emoji} {users.join(', ')}</p>
+					{/if}
+				{/each}
 			{/if}
 		</div>
 	{:else}
