@@ -6,9 +6,17 @@
 	let authorFilter = $state<string | null>(null);
 	let hoverChip = $state<string | null>(null); // `${msgId}:${emoji}`
 
-	const authors = [...new Set(messages.map((m) => m.name))].sort((a, b) =>
-		a.localeCompare(b, undefined, { sensitivity: 'base' })
-	);
+	// Everyone who participated: message authors plus reaction-only lurkers.
+	const messageAuthors = new Set(messages.map((m) => m.name));
+	const authors = [
+		...new Set([
+			...messageAuthors,
+			...messages.flatMap((m) => Object.values(m.reactions).flat())
+		])
+	].sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
+
+	const reactedTo = (m: Message, name: string) =>
+		Object.values(m.reactions).some((users) => users.includes(name));
 
 	// Thread-aware ordering: each parent followed by its replies.
 	const parents = messages.filter((m) => !m.parentId);
@@ -24,7 +32,13 @@
 
 	const matches = (m: Message) => {
 		if (topicFilter && m.topic !== topicFilter) return false;
-		if (authorFilter && m.name !== authorFilter) return false;
+		if (authorFilter) {
+			// Lurkers who never messaged: show what they reacted to instead.
+			const ok = messageAuthors.has(authorFilter)
+				? m.name === authorFilter
+				: reactedTo(m, authorFilter);
+			if (!ok) return false;
+		}
 		const q = query.trim().toLowerCase();
 		return !q || m.text.toLowerCase().includes(q) || m.name.toLowerCase().includes(q);
 	};
@@ -57,7 +71,10 @@
 			<option value={a}>{a}</option>
 		{/each}
 	</select>
-	<span class="text-sm text-ink-3">{visible.length} of {messages.length} messages</span>
+	<span class="text-sm text-ink-3">
+		{visible.length} of {messages.length} messages{#if authorFilter && !messageAuthors.has(authorFilter)}
+			· {authorFilter} never messaged — showing what they reacted to{/if}
+	</span>
 </div>
 
 <div class="max-h-[36rem] space-y-1.5 overflow-y-auto rounded-xl border border-white/10 bg-surface-2/40 p-4">
