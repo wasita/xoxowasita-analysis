@@ -39,6 +39,46 @@ def talk_windows() -> dict[int, str]:
     return {k: " ".join(v) for k, v in windows.items() if k >= 0}
 
 
+# Hand-written paraphrases of what was on stage per 2-minute bin (no verbatim
+# transcript text ships — same disclosure level as the public segment cards).
+BLURBS: dict[int, str] = {
+    0: "She opens: how do two strangers become close? Tumblr and the freshman STEM crew",
+    2: "The Surgeon General's loneliness stakes; three routes to connection in the literature",
+    4: "Control vs naturalism — “nobody connects with a survey” — choosing both",
+    6: "The framework: connection as inference through conversation; three-study roadmap",
+    8: "Wedding small talk as foraging; the Chris & Phoebe Bridgers story",
+    10: "Study 1 design: three-minute chats about one topic, guessing all the rest",
+    12: "Study 1 results: one agreement spreads to related topics",
+    14: "Conversation repairs bad first impressions; two candidate models of the mind",
+    16: "The population mental-map model wins; back to Chris",
+    18: "The shared-experience gap; pandemic Slack with Alexis & Clara",
+    20: "Building the co-watching app pre-LLM (“raw dogging it”); Love Is Blind",
+    22: "Strangers hit friend-level connection; replies and word echoes",
+    24: "The secret stream split: Shane between Natalie and Shaina",
+    26: "Scoring each chat message against the show's moment",
+    28: "The connection boost switches on exactly when screens diverge",
+    30: "Blaming minds, not screens; into study 3",
+    32: "Mohegan Sun, Krispy Kreme, and Sush's “I can relate”; the disclosure game",
+    34: "Relating beats having lived it",
+    36: "Rare commonalities count more — they're diagnostic",
+    38: "Synthesis: inference through conversation; the two friendships",
+    40: "Closing line and applause",
+    42: "Thank yous: the committee",
+    44: "Thank yous: Thalia; Luke's slide",
+    46: "Thank yous: Luke, and Eunice",
+    48: "Thank yous: Eshin; the lab",
+    50: "Thank yous: the lab, TK stories",
+    52: "Thank yous: Grace, Sush, the cohort",
+    54: "Thank yous: Alexis; summer schools and Chris",
+    56: "Thank yous: Cosmos and the Frank Lab",
+    58: "Thank yous: Liz, Romy, Amitai, Jay",
+    60: "Thank yous: Noah, Joji the cat, Jackie",
+    62: "Thank yous: Lori the English teacher, James, her cousin, her parents",
+    64: "Severely over time; reception announced; goodbyes",
+    66: "Goodbyes",
+}
+
+
 def main() -> None:
     if not VTT.exists():
         raise SystemExit(f"transcript not found at {VTT} (local-only file)")
@@ -62,14 +102,22 @@ def main() -> None:
 
     scored = messages.with_columns(pl.Series("coupling", scores)).drop_nulls("coupling")
 
-    # Room coupling per 2-minute bin.
+    # Room coupling per 2-minute bin, with an on-stage blurb and the two
+    # best-coupled chat messages as hover samples.
     bins = []
     for b in range(0, 68, BIN_MIN):
-        vals = scored.filter(
+        in_bin = scored.filter(
             (pl.col("minutes") >= b) & (pl.col("minutes") < b + BIN_MIN)
-        )["coupling"]
+        )
+        vals = in_bin["coupling"]
         bins.append(
-            {"minute": b, "mean": round(float(vals.mean()), 4) if len(vals) else None, "n": len(vals)}
+            {
+                "minute": b,
+                "mean": round(float(vals.mean()), 4) if len(vals) else None,
+                "n": len(vals),
+                "blurb": BLURBS.get(b),
+                "samples": in_bin.sort("coupling", descending=True).head(2)["id"].to_list(),
+            }
         )
 
     # Per-person mean coupling.

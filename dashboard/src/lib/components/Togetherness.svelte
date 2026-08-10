@@ -49,7 +49,7 @@
 		{/each}
 	</svg>
 </div>
-<p class="mt-1 h-5 text-sm text-ink-2">
+<p class="mt-3 min-h-5 text-sm leading-relaxed text-ink-2">
 	{#if hover}
 		<span class="text-accent-soft font-medium">min {hover.minute}–{hover.minute + binMinutes}</span>
 		· togetherness {hover.mean.toFixed(2)} across {hover.n} messages
@@ -58,7 +58,7 @@
 		<span class="text-ink-3">mean semantic similarity between different people's messages within each 2-minute window — high = one shared conversation, low = scattered side-chats · pink dots mark the extremes</span>
 	{/if}
 </p>
-<p class="mt-3 text-sm text-ink-2">
+<p class="mt-4 text-sm leading-relaxed text-ink-2">
 	Peak togetherness: minute {peakMinute} — the whole room chanting about Joji in unison.
 	Most fragmented: minute {troughMinute}, mid thread-discovery chaos. Event mean
 	{overallMean.toFixed(2)}.

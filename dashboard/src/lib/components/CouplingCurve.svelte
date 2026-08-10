@@ -4,7 +4,14 @@
 
 	const msgById = new Map(messages.map((m) => [m.id, m]));
 	const { bins, binMinutes, people, overallMean } = coupling;
-	const filled = bins.filter((b) => b.mean !== null) as { minute: number; mean: number; n: number }[];
+	interface Bin {
+		minute: number;
+		mean: number;
+		n: number;
+		blurb: string | null;
+		samples: string[];
+	}
+	const filled = bins.filter((b) => b.mean !== null) as Bin[];
 	const maxMean = Math.max(...filled.map((b) => b.mean));
 
 	const W = 720;
@@ -51,14 +58,32 @@
 		{/each}
 	</svg>
 </div>
-<p class="mt-1 h-5 text-sm text-ink-2">
+<div class="mt-3 min-h-24 rounded-lg border border-white/10 bg-surface-2/40 px-4 py-3 text-sm leading-relaxed">
 	{#if hover}
-		<span class="text-accent-soft font-medium">min {hover.minute}–{hover.minute + binMinutes}</span>
-		· mean coupling {hover.mean.toFixed(2)} across {hover.n} messages
+		<p>
+			<span class="text-accent-soft font-medium">min {hover.minute}–{hover.minute + binMinutes}</span>
+			<span class="text-ink-2"> · mean coupling {hover.mean.toFixed(2)} across {hover.n} messages</span>
+		</p>
+		{#if hover.blurb}
+			<p class="mt-1.5 text-ink-2"><span class="text-ink-3">on stage:</span> {hover.blurb}</p>
+		{/if}
+		{#each hover.samples as id (id)}
+			{@const m = msgById.get(id)}
+			{#if m}
+				<p class="mt-1 text-ink-2">
+					<span class="text-ink-3">in chat:</span>
+					<span class="text-accent-soft">{m.name}</span>: {m.text}
+				</p>
+			{/if}
+		{/each}
 	{:else}
-		<span class="text-ink-3">semantic similarity between each message and the words spoken on stage in that moment (same method as study 2, same embedding model) · whole-talk mean {overallMean.toFixed(2)}</span>
+		<p class="text-ink-3">
+			Semantic similarity between each message and the words spoken on stage in that moment —
+			the same method as study 2, same embedding model. Whole-talk mean {overallMean.toFixed(2)}.
+			Hover a dot for what was on stage and the chat's closest echoes.
+		</p>
 	{/if}
-</p>
+</div>
 
 <div class="mt-5 grid gap-4 lg:grid-cols-2">
 	<div class="rounded-xl border border-white/10 bg-surface-2/60 p-5">
