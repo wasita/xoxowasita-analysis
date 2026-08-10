@@ -46,6 +46,9 @@ def load_tables() -> tuple[pl.DataFrame, pl.DataFrame]:
             for cid, name in users.items()
         ]
     )
+    # One person on two devices gets two clientIds and can double-react;
+    # a reaction is one human's tap, so dedupe on (message, emoji, name).
+    reactions = reactions.unique(subset=["msg_id", "emoji", "reactor"], keep="first")
     return messages, reactions
 
 
