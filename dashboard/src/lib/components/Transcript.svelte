@@ -3,7 +3,12 @@
 
 	let query = $state('');
 	let topicFilter = $state<string | null>(null);
+	let authorFilter = $state<string | null>(null);
 	let hoverChip = $state<string | null>(null); // `${msgId}:${emoji}`
+
+	const authors = [...new Set(messages.map((m) => m.name))].sort((a, b) =>
+		a.localeCompare(b, undefined, { sensitivity: 'base' })
+	);
 
 	// Thread-aware ordering: each parent followed by its replies.
 	const parents = messages.filter((m) => !m.parentId);
@@ -19,6 +24,7 @@
 
 	const matches = (m: Message) => {
 		if (topicFilter && m.topic !== topicFilter) return false;
+		if (authorFilter && m.name !== authorFilter) return false;
 		const q = query.trim().toLowerCase();
 		return !q || m.text.toLowerCase().includes(q) || m.name.toLowerCase().includes(q);
 	};
@@ -40,6 +46,15 @@
 		<option value={null}>every topic</option>
 		{#each Object.entries(topics) as [key, t] (key)}
 			<option value={key}>{t.label}</option>
+		{/each}
+	</select>
+	<select
+		bind:value={authorFilter}
+		class="rounded-lg border border-white/15 bg-surface-2 px-2 py-1.5 text-sm text-ink-2 focus:border-accent focus:outline-none"
+	>
+		<option value={null}>everyone</option>
+		{#each authors as a (a)}
+			<option value={a}>{a}</option>
 		{/each}
 	</select>
 	<span class="text-sm text-ink-3">{visible.length} of {messages.length} messages</span>
