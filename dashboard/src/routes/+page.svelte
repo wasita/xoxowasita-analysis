@@ -63,7 +63,8 @@
 	<p class="mt-1 text-sm text-ink-3">
 		July 10, 2026 · public dissertation defense ·
 		<a href="https://github.com/ljchang/xoxowasita" class="underline decoration-white/30 hover:text-ink-2">the chat app</a>
-		Luke built for the audience
+		<a href="https://github.com/ljchang" class="underline decoration-white/30 hover:text-ink-2">Luke</a>
+		built for the audience
 	</p>
 
 	<div class="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-5">
