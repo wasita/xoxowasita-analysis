@@ -21,6 +21,7 @@
 		count: number;
 	}
 	let placed = $state<Placed[]>([]);
+	let hover = $state<Placed | null>(null);
 
 	if (browser) {
 		cloud()
@@ -41,20 +42,25 @@
 	<g transform="translate({W / 2},{H / 2})">
 		{#each placed as w (w.text)}
 			<text
+				role="presentation"
 				x={w.x}
 				y={w.y}
 				text-anchor="middle"
 				font-size={w.size}
 				font-weight={w.size > 34 ? 700 : 500}
 				fill={tone(w.count)}
-			>
-				{w.text}
-				<title>{w.text} ×{w.count}</title>
-			</text>
+				opacity={hover === null || hover === w ? 1 : 0.35}
+				style="cursor: default; transition: opacity 120ms"
+				onmouseenter={() => (hover = w)}
+				onmouseleave={() => (hover = null)}
+			>{w.text}</text>
 		{/each}
 	</g>
 </svg>
-<p class="mt-2 text-sm text-ink-3">
-	Every word used at least twice, sized by frequency (stopwords removed). Hover a word for its
-	count.
+<p class="mt-2 h-5 text-sm text-ink-2">
+	{#if hover}
+		<span class="text-accent-soft font-medium">{hover.text}</span> ×{hover.count}
+	{:else}
+		<span class="text-ink-3">every word used at least twice, sized by frequency (stopwords removed) — hover a word for its count</span>
+	{/if}
 </p>

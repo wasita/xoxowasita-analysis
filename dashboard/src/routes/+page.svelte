@@ -40,7 +40,7 @@
 		{ id: 'phrases', title: 'Born in the chat', kicker: 'coined phrases', component: Phrases },
 		{ id: 'network', title: 'Who connected with whom', kicker: 'the connection graph', component: ConnectionGraph },
 		{ id: 'responsivity', title: 'Who answers whom', kicker: 'turn-taking responsivity', component: ResponsivityGraph },
-		{ id: 'matrix', title: 'Who showers whom', kicker: 'the reaction matrix', component: ReactionMatrix },
+		{ id: 'matrix', title: 'Who reacts to whom', kicker: 'the reaction matrix', component: ReactionMatrix },
 		{ id: 'burstiness', title: 'Steady vs spiky', kicker: 'posting rhythm', component: Burstiness },
 		{ id: 'authors', title: 'Who chats alike', kicker: 'author constellation', component: AuthorMap },
 		{ id: 'talk', title: 'The talk, minute by minute', kicker: 'chat-reconstructed, recording-verified', component: Reconstruction },
