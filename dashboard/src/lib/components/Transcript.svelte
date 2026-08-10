@@ -3,6 +3,7 @@
 
 	let query = $state('');
 	let topicFilter = $state<string | null>(null);
+	let hoverChip = $state<string | null>(null); // `${msgId}:${emoji}`
 
 	// Thread-aware ordering: each parent followed by its replies.
 	const parents = messages.filter((m) => !m.parentId);
@@ -56,11 +57,16 @@
 			{#if Object.keys(m.reactions).length}
 				<p class="mt-1 flex flex-wrap gap-1.5">
 					{#each Object.entries(m.reactions) as [emoji, users] (emoji)}
+						{@const key = `${m.id}:${emoji}`}
 						<span
-							class="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-xs text-ink-2"
-							title={users.join(', ')}
+							role="presentation"
+							class="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-xs text-ink-2 transition-colors
+							       {hoverChip === key ? 'border-accent/50 text-ink' : ''}"
+							onmouseenter={() => (hoverChip = key)}
+							onmouseleave={() => (hoverChip = null)}
 						>
-							{emoji} {users.length}
+							{emoji}
+							{#if hoverChip === key}{users.join(', ')}{:else}{users.length}{/if}
 						</span>
 					{/each}
 				</p>
